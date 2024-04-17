@@ -59,16 +59,20 @@
       $(document).ready(function() {
     // Define an object to store project URLs
     var projects = {
-        "Hangman-react": 'https://hangman-kappa-liart.vercel.app/',
+        "hangmanJS": 'https://jongo79.github.io/ahorcado/',
+        "hangmanReact": 'https://hangman-kappa-liart.vercel.app/',
         "Simon": 'https://simon-game-nine-livid.vercel.app/',
+        "PortfolioCV": 'https://jongo79.github.io/jonPortfolio/',
+
         // Add more projects as needed
     };
 
     // Initialize terminal with greetings and commands
     $('body').terminal({
-    hello: function(what) {
-        this.echo('Hello, ' + what + '. Welcome to this terminal.');
-    },
+    hangmanJS: function() {
+        hangmanJSurl = 'https://https://jongo79.github.io/jonPortfolio/';
+        window.open(hangmanJSurl, '_blank');    },
+
     foto: function(size) {
     const img = $('<img src="https://picsum.photos/' + size + '">');
     this.echo(img);
