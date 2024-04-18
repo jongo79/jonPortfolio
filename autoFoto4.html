@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image Viewer</title>
+    <style>
+        /* Center the container */
+        #button-container {
+            text-align: center;
+        }
+
+        /* Display buttons and time display in one line */
+        #button-container button,
+        #button-container input[type="text"],
+        #button-container select {
+            display: inline-block;
+            margin: 0 10px; /* Add margin between elements */
+        }
+
+        /* Style the images */
+        .image-row {
+            display: flex; /* Use flexbox for image rows */
+            flex-wrap: wrap; /* Allow images to wrap to next row */
+            justify-content: center; /* Center images horizontally */
+        }
+
+        .image {
+            margin: 5px; /* Add margin around each image */
+        }
+
+        /* Set container width to 100% of viewport width */
+        #image-container {
+            width: 100vw;
+            height: 100vh; /* Set height to 100% of viewport height */
+        }
+
+        /* Center the time display */
+        #current-time {
+            font-size: 16px;
+            /* Increase font size for better visibility */
+            font-family: monospace;
+            /* Use monospace font for consistent width */
+            text-align: center;
+            /* Center the time display */
+            margin-bottom: 20px;
+            /* Add some margin below the time display */
+            display: none; /* Hide the time display initially */
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for buttons and time display -->
+    <div id="button-container">
+        <!-- Input for size -->
+        <label for="image-size">Image Size:</label>
+        <input type="range" id="image-size" value="100" min="50" max="500" step="50" oninput="updateSize()">
+        <span id="size-display">100</span>
+
+        <!-- Select for time interval -->
+        <label for="time-interval">Time Interval:</label>
+        <select id="time-interval" onchange="updateInterval()">
+            <option value="1">1 Second</option>
+            <option value="60">1 Minute</option>
+            <option value="3600">1 Hour</option>
+            <option value="86400">1 Day</option>
+        </select>
+
+        <!-- Button to start/stop slideshow -->
+        <button id="slideshow-button" onclick="toggleSlideshow()">Start Slideshow</button>
+        <!-- Container for current time display -->
+        <div id="current-time"></div>
+        <!-- Button to manually operate -->
+        <button id="manual-button" onclick="manualOperation()">Manual</button>
+    </div>
+
+    <!-- Container for image rows -->
+    <div id="image-container"></div>
+
+
+    <script>
+        let slideshowRunning = false; // Variable to track slideshow state
+        let slideshowInterval; // Variable to store interval ID for slideshow
+
+        // Function to update the displayed size value
+        function updateSize() {
+            // Get the value from the size input
+            const size = document.getElementById('image-size').value;
+            // Display the value next to the input
+            document.getElementById('size-display').textContent = size;
+        }
+
+        // Function to start or stop the slideshow
+        function toggleSlideshow() {
+            const button = document.getElementById('slideshow-button');
+            if (slideshowRunning) {
+                // Stop the slideshow
+                clearInterval(slideshowInterval);
+                slideshowRunning = false;
+                button.textContent = 'Start Slideshow';
+            } else {
+                // Start the slideshow
+                slideshowInterval = setInterval(displayRandomImage, 1000); // Update images every second
+                slideshowRunning = true;
+                button.textContent = 'Stop Slideshow';
+            }
+        }
+
+        // Function for manual operation
+        function manualOperation() {
+            // Display a random image
+            displayRandomImage();
+        }
+
+        // Function to display a random image
+        function displayRandomImage() {
+            // Get the image size input value
+            const size = parseInt(document.getElementById('image-size').value);
+            // Generate a random cache buster value to prevent caching
+            const cacheBuster = Math.random().toString(36).substring(7);
+            // Construct the image URL with the specified size and cache buster parameter
+            const imageUrl = `https://picsum.photos/${size}?` + cacheBuster;
+            // Create an image element
+            const img = document.createElement('img');
+            // Set the image source to the generated URL
+            img.src = imageUrl;
+
+            // Find the image container element
+            const container = document.getElementById('image-container');
+
+            // Calculate the number of elements per row based on image size
+            let elementsPerRow = 10; // Default value
+            if (size >= 500) {
+                elementsPerRow = 1; // If image size is 500 or more, show one element per row
+            } else if (size >= 400) {
+                elementsPerRow = 2; // If image size is 400 or more, show two elements per row
+            } else if (size >= 300) {
+                elementsPerRow = 4; // If image size is 300 or more, show four elements per row
+            } else if (size >= 200) {
+                elementsPerRow = 6; // If image size is 200 or more, show six elements per row
+            }
+
+            // Check if the first row exists and is full
+            let firstRow = container.firstElementChild;
+            if (!firstRow || firstRow.children.length >= elementsPerRow) {
+                // Create a new row if the first row is full or doesn't exist
+                firstRow = document.createElement('div');
+                firstRow.className = 'image-row';
+                container.prepend(firstRow); // Prepend the new row to the container
+            }
+
+            // Append the image to the first row
+            firstRow.appendChild(img);
+        }
+
+        // Function to display the current time
+        function displayCurrentTime() {
+            const now = new Date();
+            const hours = ('0' + now.getHours()).slice(-2); // Get hours with leading zero
+            const minutes = ('0' + now.getMinutes()).slice(-2); // Get minutes with leading zero
+            const seconds = ('0' + now.getSeconds()).slice(-2); // Get seconds with leading zero
+            const currentTime = hours + ':' + minutes + ':' + seconds; // Format time as HH:MM:SS
+            document.getElementById('current-time').textContent = currentTime; // Update time display
+            document.getElementById('current-time').style.display = 'block'; // Show the time display
+        }
+
+        // Call the displayCurrentTime function every second
+        setInterval(displayCurrentTime, 1000);
+    </script>
+</body>
+</html>
