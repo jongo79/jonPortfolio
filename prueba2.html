@@ -5,42 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Image Viewer</title>
     <style>
-        /* Center the button */
-        #random-image-button {
-            display: block;
-            margin: 0 auto;
-            margin-bottom: 10px; /* Add margin at the bottom */
-        }
+        /* Center the button container */
+#button-container {
+    text-align: center; /* Center the button container */
+    white-space: nowrap; /* Prevent button container from wrapping */
+}
 
-        /* Style the images */
-        .image-row {
-            display: flex; /* Use flexbox for image rows */
-            flex-wrap: wrap; /* Allow images to wrap to next row */
-            justify-content: center; /* Center images horizontally */
-        }
+/* Style the buttons */
+#button-container button,
+#button-container input[type="text"],
+#button-container select {
+    display: inline-block; /* Display buttons as inline block */
+    margin: 0 10px; /* Add margin between buttons */
+    vertical-align: middle; /* Align buttons vertically */
+}
 
-        .image {
-            margin: 5px; /* Add margin around each image */
-        }
+/* Center the time display */
+#current-time {
+    font-size: 16px; /* Increase font size for better visibility */
+    font-family: monospace; /* Use monospace font for consistent width */
+    text-align: center; /* Center the time display */
+    margin-bottom: 20px; /* Add some margin below the time display */
+    display: none; /* Hide the time display initially */
+}
 
-        /* Set container width to 100% of viewport width */
-        #image-container {
-            width: 100vw;
-            height: 100vh; /* Set height to 100% of viewport height */
-        }
-
-        /* Center the time display */
-        #current-time {
-            font-size: 16px;
-            /* Increase font size for better visibility */
-            font-family: monospace;
-            /* Use monospace font for consistent width */
-            text-align: center;
-            /* Center the time display */
-            margin-bottom: 20px;
-            /* Add some margin below the time display */
-            display: none; /* Hide the time display initially */
-        }
     </style>
 </head>
 <body>

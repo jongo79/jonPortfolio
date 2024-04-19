@@ -47,6 +47,8 @@
             /* Add some margin below the time display */
             display: none; /* Hide the time display initially */
         }
+</style>
+
     </style>
 </head>
 <body>
@@ -68,11 +70,13 @@
 
         <!-- Button to start/stop slideshow -->
         <button id="slideshow-button" onclick="toggleSlideshow()">Start Slideshow</button>
-        <!-- Container for current time display -->
-        <div id="current-time"></div>
+      
         <!-- Button to manually operate -->
         <button id="manual-button" onclick="manualOperation()">Manual</button>
+        
     </div>
+      <!-- Container for current time display -->
+      <div id="current-time"></div>
 
     <!-- Container for image rows -->
     <div id="image-container"></div>
@@ -91,20 +95,27 @@
         }
 
         // Function to start or stop the slideshow
-        function toggleSlideshow() {
-            const button = document.getElementById('slideshow-button');
-            if (slideshowRunning) {
-                // Stop the slideshow
-                clearInterval(slideshowInterval);
-                slideshowRunning = false;
-                button.textContent = 'Start Slideshow';
-            } else {
-                // Start the slideshow
-                slideshowInterval = setInterval(displayRandomImage, 1000); // Update images every second
-                slideshowRunning = true;
-                button.textContent = 'Stop Slideshow';
-            }
-        }
+// Function to start or stop the slideshow
+function toggleSlideshow() {
+    const button = document.getElementById('slideshow-button');
+    if (slideshowRunning) {
+        // Stop the slideshow
+        clearInterval(slideshowInterval);
+        slideshowRunning = false;
+        button.textContent = 'Start Slideshow';
+    } else {
+        // Display the first image immediately
+        displayRandomImage();
+        // Get the selected time interval value
+        const interval = parseInt(document.getElementById('time-interval').value);
+        // Start the slideshow with the selected interval
+        slideshowInterval = setInterval(displayRandomImage, interval * 1000); // Update images based on the selected interval
+        slideshowRunning = true;
+        button.textContent = 'Stop Slideshow';
+    }
+}
+
+
 
         // Function for manual operation
         function manualOperation() {
