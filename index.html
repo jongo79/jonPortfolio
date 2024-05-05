@@ -65,9 +65,8 @@
                 "hangmanJS": 'https://jongo79.github.io/ahorcado/',
                 "hangmanReact": 'https://hangman-kappa-liart.vercel.app/',
                 "Simon": 'https://simon-game-nine-livid.vercel.app/',
-                "CV": 'https://jongo79.github.io/jonPortfolio/',
+                // "CV": 'https://jongo79.github.io/jonPortfolio/',
                 "fotoClock": 'https://jongo79.github.io/fotoClock/',
-                "randomView": 'https://jongo79.github.io/randomView/',
                 "NBCT": 'https://jongo79.github.io/player/',
                 // Add more projects as needed
             };
@@ -80,25 +79,18 @@
             // Initialize terminal with greetings and commands
             $('body').terminal({
 
-                CV: function () {
-                    pdfCV = 'https://www.canva.com/design/DAGCe5rd3e0/C2p4VnYsl1ib8cgzJfBoWA/view?utm_content=DAGCe5rd3e0&utm_campaign=designshare&utm_medium=link&utm_source=editor';
-                    window.open(pdfCV, '_blank');
-                },
-
-
-
-                foto: function (size) {
+                         /*  foto: function (size) {
                     size = size || '200';     // Set a default size if no size argument is provided
                     const cacheBuster = Math.random().toString(36).substring(7); // Example of generating a random string
                     const imageUrl = 'https://picsum.photos/' + size + '?cache=' + cacheBuster; // Construct the image URL with the specified size and cache-busting parameter
                     const img = $('<img src="' + imageUrl + '">');    // Create the image element
                     this.echo(img);    // Append the image element to the output
 
-                },
+                }, */
 
 
                 list: function () {
-                    var output = 'Available projects:\n';
+                    var output = '\nAvailable projects:\n\n';
                     for (var project in projects) {
                         output += '- ' + project + '\n';
                     }
@@ -133,19 +125,50 @@
 
 
                 help: function () {
-                    var output = 'Arrow up for command history\nAvailable commands:\n';
-                    output += '- foto [size]: Displays a random image with the specified witdh or heigth.\n';
+                    var output = '\nAvailable commands:\n';
+                    output += ' \n';
                     output += '- list: Lists content.\n';
-                    output += '- open [content]: Opens content in a new tab.\n';
+                    output += '- open [element]: Opens element.\n';
                     output += '- help: Displays this help message.\n';
-                    output += '- CV: Displays curriculum vitae.\n';
+                    output += '- cv: Displays curriculum vitae.\n';
+                   
                     this.echo(output);
                 },
 
+                cv: function () {
+                    var output2 = '\nCURRICULUM VITAE:\n';
+                    output2 += ' \n';
+                    output2 += 'ESTUDIOS:\n';
+                    output2 += ' \n';
+                    output2 += '- Diseño de aplicaciones - web 600 horas - AEG donostia - 2023/2024:\n';
+                    output2 += '- Ciclo formativo de grado superior en informática y telecomunicaciones - IFPS Bidasoa Irun - 2000/2002:\n';
+                    output2 += '- Ciclo formativo de grado superior en diseño y producción editorial - Salesianos Urnieta - 1997/1999:\n';
+                    output2 += ' \n';
+                    output2 += 'EXPERIENCIA:\n';
+                    output2 += ' \n';
+                    output2 += '- Tècnico SAT para Euskaltel - 2016-2023\n';
+                    output2 += '- Almacèn y pedidos en Lardagi S.L. - 2016-2023\n';
+                    output2 += '- Operario de producción y testeo de baterías - 2015-2016\n';
+                    output2 += '- Tècnico SAT para Euskaltel y Movistar - 2003 - 2014\n';
+                    output2 += '- Camarero en restaurante y eventos - Royal Hotel Winchester - 1999-2000.\n';
+                    output2 += ' \n';
+                    output2 += 'IDIOMAS:\n';
+                    output2 += ' \n';
+                    output2 += '- Euskera y Español nativos. Inglés bueno y nociones de Fancés:\n';
+                    output2 += ' \n';
+                    output2 += 'AFICIONES:\n';
+                    output2 += ' \n';
+                    output2 += '- Música, cine, foto.\n';
+
+
+
+              
+                    this.echo(output2);
+                },
 
 
             }, {
-                greetings: '\n\nWelcome to the Integrated Web Terminal\nType "help" to see some magic!',
+                greetings: '\n\nWelcome to the Integrated Web Terminal\nType "help" to see the options\n',
                 prompt: '> ',
 
 
